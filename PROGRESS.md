@@ -1,0 +1,44 @@
+# Infotop 購入者ページ コーディング進捗
+
+再開するときはこのファイルから読む。カンプ：https://claude.ai/artifact/8Lj7zPFNNcah98TmTbMZNP
+
+## 作り方
+- `node build.js` で `dist/` を出力（依存パッケージなし）。確認は `dist/` をローカルサーバーで開く（例：`python -m http.server 8801`）。
+- `src/layout.js`：ヘッダー・ナビ・フッター・ドロワー・ログインボックス
+- `src/pages.js`：ログイン前の画面、マイページTOP、お知らせ、ログアウト、退会
+- `src/pages-my.js`：マイページ下層（注文履歴・分割・月額・メッセージ・会員情報・カード変更）
+- `src/css/style.css`：SPファースト。PCは `@media (min-width: 768px)`
+- PC/SPで要素や文言が違う所は `.pc-only` / `.sp-only` で出し分ける（現行の差分を維持）。
+- 広告・自社枠はサイズ付きの枠のみ。商品名などはカンプと同じダミー。
+
+## 共通ルール（ユーザー確認済み）
+- バナー・サムネイルは角丸なし。商品画像なしはInfotopロゴのアイコン。
+- クリックできる文字はリンク色。ランキング1〜3位は王冠バッジ。
+- ボタン色：購入者 #CE1C00、アフィリエイター #FA9613、販売者 #15B22B。
+- 0円広場は `src/layout.js` の ZERO_CAT を外すだけでPCナビから消せる（均等に詰まる）。SPメニューの `SP_MENU` と各所のリンクは別途削除。
+- 売上ランキングはログイン前後で本文が同じでヘッダーのみ違う。
+
+## 状況（2026-11-06時点）：31ページ作成済み
+| 区分 | ファイル |
+|---|---|
+| ログイン前 | index, list, ranking, login, pw-reset, pw-sent |
+| マイページ | mypage, news, news-detail, ranking-member, order, split, monthly, monthly-quit |
+| メッセージ | message, message-detail, message-sent, message-sent-detail, message-setting, message-trash, message-trash-detail |
+| 会員情報 | member, member-confirm, member-done, withdraw, withdraw-confirm, withdraw-done |
+| カード | card-form, card-input |
+| ログアウト | logout, logout-done |
+
+確認済み：
+- 全31ページが幅375 / 768 / 1024 / 1440で横にはみ出さない（ドメインTOPのみ修正後に再測定）
+- ページ間リンクの切れと画像切れなし（幅1440で確認）
+- ログインボックスの開閉
+
+## 残り（再開時はここから）
+- [ ] アコーディオン本文の照合：WFの要約から起こした箇所あり（注文履歴の「ダウンロード後の操作」2種、適格請求書は7項目中6項目のみ判明）。テスト環境にログインできる状態で現行の全文に置き換える
+- [ ] ログイン失敗の注意書き：現行の文言を未確認（仮の文言）。デモでは未入力で送信すると表示
+- [ ] 商品名の商品LPリンクは href="#" の仮。実URLはサーバー側で差し込み（data-lp 属性）
+- [x] 11/06の修正はカンプ（69枚）・WF・一覧シートへ同期済み。カンプPDF（Drive）は65枚時点のまま
+- [ ] カンプとの細部の見比べ（PCは主要8ページ、SPは4ページの一部のみ確認済み）
+- [ ] SPドロワーの操作確認
+- [ ] マイページTOP（PC）の「よく閲覧されているページ」のボタンをカンプの体裁に寄せる
+- [ ] ランキング期間のデータ切替、受け渡し形式（README、ZIP、テンプレート化の要否）

@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 130" role="img"><rect width="240" height="130" fill="#FDF3F0"/><g><circle cx="48" cy="58" r="13" fill="#F6CFB0"/><path d="M34 55c1-14 27-14 28 0c-7-5-20-5-28 0z" fill="#3A3F45"/><path d="M26 108c0-24 8-34 22-34s22 10 22 34z" fill="#CE1C00"/></g>
+<rect x="88" y="16" width="136" height="88" rx="4" fill="#3A3F45"/><rect x="93" y="21" width="126" height="72" fill="#FFFFFF"/>
+<rect x="93" y="21" width="126" height="16" fill="#24272B"/><rect x="97" y="25" width="26" height="8" fill="#6B7076"/><rect x="127" y="23" width="36" height="14" fill="#CE1C00"/><text x="145" y="33" font-size="8" font-weight="700" fill="#FFFFFF" text-anchor="middle" font-family="sans-serif">注文履歴</text><rect x="167" y="25" width="26" height="8" fill="#6B7076"/>
+<rect x="101" y="46" width="110" height="6" fill="#E3DED8"/><rect x="101" y="58" width="110" height="6" fill="#E3DED8"/><rect x="101" y="70" width="80" height="6" fill="#E3DED8"/>
+<rect x="146" y="104" width="20" height="8" fill="#6B7076"/><rect x="130" y="112" width="52" height="4" fill="#3A3F45"/><path d="M150 30l0 18 5-5 4 9 4-2-4-9 7 0z" fill="#1F2328" stroke="#FFFFFF" stroke-width="1.5"/>
+<path d="M66 84q18-10 28-22" stroke="#F6CFB0" stroke-width="7" fill="none" stroke-linecap="round"/></svg>
