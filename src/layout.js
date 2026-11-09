@@ -29,7 +29,7 @@ const catIcon = c => `<span class="cat-icon" style="--c-fg:${c[2]};--c-bg:${c[3]
 const KW = ['FX', 'アフィリエイト', 'WordPressテーマ', 'リライト', 'Amazon', 'せどり', '競馬'];
 
 // 検索条件（ヘッダーの詳細検索と、商品一覧の絞り込みで共通。項目は現行どおり）
-const PAY_FULL = ['クレカ一括', 'クレカ分割', 'リボ払い', '銀行振込一括', '銀行振込分割', 'コンビニ決済', '代引き', 'BitCash'];
+const PAY_FULL = ['クレカ一括', 'クレカ分割', 'リボ払い', '銀行振込一括', '銀行振込複数回', 'コンビニ決済', '代引き', 'BitCash'];
 const catOptions = () => '<option>選択してください</option><option>【ダウンロード】</option><option>【セミナー】</option>' + CATS.map(c => `<option>【${c[0]}】</option>${c[5].map((x, n) => `<option>${n === c[5].length - 1 ? '└' : '├'} ${x}</option>`).join('')}`).join('');
 function searchFields(pfx, withBasic) {
   const basic = withBasic ? `<label class="sf-row"><span>カテゴリー：</span><select class="input">${catOptions()}</select></label><label class="sf-row"><span>キーワード：</span><input class="input" type="text"></label>` : '';
@@ -40,9 +40,9 @@ function catNav(member) {
   const list = member ? [...CATS, RANK_CAT, ZERO_CAT] : [...CATS, ZERO_CAT];
   return `<nav class="cat-nav pc-only" aria-label="カテゴリ"><ul class="cat-nav__list wrap">${list.map(c => `<li class="cat-nav__item" style="--c-fg:${c[2]};--c-bg:${c[3]}"><a class="cat-nav__link" href="${href(c)}">${catIcon(c)}<span>${c[0]}</span></a>${c[5].length ? `<ul class="cat-nav__sub">${c[5].map(s => `<li><a href="list.html">${s}<span class="chev">›</span></a></li>`).join('')}</ul>` : ''}</li>`).join('')}</ul></nav>`;
 }
-const TABS = [['TOP', 'home', 'mypage.html'], ['お知らせ', 'bell', 'news.html'], ['注文履歴', 'doc', 'order.html'], ['分割決済', 'card', 'split.html'], ['月額課金サービス', 'cal', 'monthly.html'], ['メッセージ', 'mail', 'message.html'], ['会員情報', 'user', 'member.html'], ['ヘルプ', 'help', '#'], ['ログアウト', 'out', 'logout.html']];
+const TABS = [['TOP', 'home', 'mypage.html'], ['お知らせ', 'bell', 'news.html'], ['注文履歴', 'doc', 'order.html'], ['分割決済', 'card', 'split.html'], ['月額課金サービス', 'cal', 'monthly.html'], ['WEBメール', 'mail', 'message.html'], ['会員情報', 'user', 'member.html'], ['ヘルプ', 'help', '#'], ['ログアウト', 'out', 'logout.html']];
 const myTabs = active => `<nav class="my-tabs pc-only" aria-label="マイページ"><ul class="wrap">${TABS.map(([t, ic, h]) => `<li><a href="${h}" ${t === active ? 'aria-current="page"' : ''}>${i(ic)}${t}</a></li>`).join('')}</ul></nav>`;
-const SP_MENU = [['トップ', 'home', 'mypage.html'], ['注文履歴', 'doc', 'order.html'], ['月額課金', 'cal', 'monthly.html'], ['分割決済', 'card', 'split.html'], ['メッセージ', 'mail', 'message.html'], ['会員情報', 'user', 'member.html'], ['商品検索', 'search', 'list.html'], ['売れ筋', 'crown', 'ranking-member.html'], ['0円広場', 'tag', '#'], ['ガイド', 'help', '#']];
+const SP_MENU = [['トップ', 'home', 'mypage.html'], ['注文履歴', 'doc', 'order.html'], ['月額課金', 'cal', 'monthly.html'], ['分割決済', 'card', 'split.html'], ['WEBメール', 'mail', 'message.html'], ['会員情報', 'user', 'member.html'], ['商品検索', 'search', 'list.html'], ['売れ筋', 'crown', 'ranking-member.html'], ['0円広場', 'tag', '#'], ['ガイド', 'help', '#']];
 const spMenu = active => `<nav class="sp-menu sp-only" aria-label="マイページメニュー"><div class="sp-menu__grid">${SP_MENU.map(([t, ic, h]) => `<a href="${h}" ${t === active ? 'aria-current="page"' : ''}>${i(ic)}${t}</a>`).join('')}</div><div class="sp-menu__links"><a href="news.html">${i('bell')}お知らせ一覧</a><a href="#">${i('chat')}お問い合わせ先</a></div></nav>`;
 
 function header({ member, activeTab, spActive, tabs = member, cats = true, spSearch = false, spGuest = false }) {

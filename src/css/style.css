@@ -725,3 +725,19 @@ textarea.input { padding: 10px 14px; }
 
 /* 公開確認用の注意帯 */
 .mock-notice { padding: 6px 12px; background: #24272B; color: #FFFFFF; font-size: 12px; font-weight: 700; line-height: 1.5; text-align: center; }
+
+/* ===== 11/09 SP修正 ===== */
+.sp-cat { flex: none; width: 88px; min-height: 92px; padding: 6px 2px; border: 1px solid var(--line); border-radius: 12px; background: var(--white); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; color: var(--ink); font: inherit; font-size: 11px; font-weight: 700; text-align: center; line-height: 1.25; cursor: pointer; }
+.sp-cat[aria-expanded="true"] { border-color: var(--c-fg); box-shadow: inset 0 -3px 0 var(--c-fg); }
+.sp-cat-panel { margin-top: 10px; border-top: 3px solid var(--c-fg); background: var(--c-bg); }
+.sp-cat-panel__h { padding: 10px 14px 6px; font-weight: 700; }
+.sp-cat-panel__h a { color: var(--c-fg); }
+.sp-cat-panel ul { padding: 0 14px 8px; }
+.sp-cat-panel li a { display: flex; align-items: center; min-height: 44px; color: var(--ink); border-top: 1px solid rgba(0,0,0,.06); }
+.ctl--nowrap { flex-wrap: nowrap; gap: 8px; }
+.ctl--nowrap .check { font-size: 11.5px; white-space: nowrap; align-items: center; }
+.ctl--nowrap .btn { flex: none; }
+.dlg { width: min(420px, calc(100vw - 32px)); padding: 0; border: 0; border-top: 4px solid var(--red); border-radius: 12px; box-shadow: 0 16px 48px rgba(0,0,0,.28); }
+.dlg::backdrop { background: rgba(20,22,25,.5); }
+.dlg__body { display: flex; flex-direction: column; gap: 14px; padding: 22px 20px; }
+.dlg__t { font-size: 17px; font-weight: 900; }

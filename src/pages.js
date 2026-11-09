@@ -1,13 +1,13 @@
 // ページ定義。追加は PAGES に足すだけ。未着手のページは ../PROGRESS.md を参照
 const { searchFields, catOptions, i, CATS, ZERO_CAT, catIcon, header, footer, doc, ad, sideMember, thumb, noImg, rankNo } = require('./layout');
 
-const PAY = ['クレカ一括', 'クレカ分割', 'リボ払い', '銀振一括', '銀振分割', 'コンビニ', '代引', 'BitCash'];
+const PAY = ['クレカ一括', 'クレカ分割', 'リボ払い', '銀振一括', '銀振複数', 'コンビニ', '代引', 'BitCash'];
 const RECENT = [['p57827.jpg', 'ぷーさん式FX トレンドフォロー手....', '11,000円'], ['', 'NAOYA MIYAKE Solution Club', '15,000円'], ['p66736.gif', 'マカド！ Amazonせどり管理ツール', '4,980円'], ['p57070.jpg', 'ＭＴ４裁量トレード練習君プレミ....', '29,800円'], ['p52761.png', 'インターネット総合集客ツール ....', '2,980円']];
 const recentSec = cls => `<section class="${cls}" aria-label="最近チェックした商品"><h2 class="h-sec sec-head h-under-pc">最近チェックした商品</h2><div class="hscroll recent-row">${RECENT.map(([im, t, p]) => `<a class="mini" href="#">${thumb(im)}<span class="mini__t">${t}</span><span class="mini__p">${p}</span></a>`).join('')}</div></section>`;
 const rankBox = (rows, scope) => `<section class="rank-box" aria-labelledby="h-rank"><div class="rank-box__head">${i('crown')}<h2 id="h-rank">売れ筋ランキング</h2><span class="rank-box__scope pc-only">${scope}</span></div>
   <div class="period" role="tablist" aria-label="期間"><button type="button" role="tab" aria-selected="true">24時間</button><button type="button" role="tab" aria-selected="false"><span class="pc-only">1週間</span><span class="sp-only">7日間</span></button><button type="button" role="tab" aria-selected="false">30日間</button></div>
   <ol class="rank-box__list">${rows.map(([n, im, t, p]) => `<li class="rank-item">${rankNo(n)}${thumb(im)}<span class="rank-item__body"><a href="#">${t}</a><span class="rank-item__price">${p}</span></span></li>`).join('')}</ol>
-  <div class="rank-box__more"><a class="btn btn--outline btn--block" href="ranking.html">もっと見る!!</a></div></section>`;
+  <div class="rank-box__more"><a class="btn btn--outline btn--block" href="ranking.html"><span class="pc-only">もっと見る!!</span><span class="sp-only">売れ筋ランキングをもっと見る</span></a></div></section>`;
 const PR_ROW = ['PR', 'rkpr.gif', '知ってて当然のルールを知ろう', ''];
 
 // ========== ドメインTOP ==========
@@ -17,13 +17,14 @@ function home() {
   const slide = [['p49547.gif', '楽ぱそDVDお得セット', '12,800円'], ['p68608.png', '美文字の流儀', '9,800円'], ['p34583.gif', 'III..早川周作 夢を“絶対”夢で終わらせない ....', '15,000円'], ['p103016.jpg', '【動画版】女性が書いた男性のための離婚回避マ....', '39,800円'], ['p92597.jpg', '世の中ボロイぜ！毎日が給料日！？東大卒エンジ....', '80,000円'], ['p62540.jpg', '新SNSアクセス激増ソフト モンスターカウンターⅣ', '39,800円']];
   const feat = [['cat1.gif', 'スポーツ特集', '熱い感動を、燃え滾る情熱をこの季節に一層ふくらまそう！これから始める人も、テクニックを極めたい人も、お子様の上達のためにも、とっておきの商品をご紹介します！'], ['cat2.gif', '語学特集', '分かる、話せる、楽しい！そんな自分になれるチャンス。今よりもっと輝く自分になって、世界へ近づく道がここにあります。'], ['cat3.gif', 'お悩み特集', 'なかなか効果の出なかったダイエットや豊胸マッサージも、プロの助言通りに実行すると目に見えて変わってきます。それは糖尿病や高血圧などの健康問題もまた然り。']];
   const rank = [PR_ROW, [1, 'p57827.jpg', 'ぷーさん式FX トレンドフォロー手....', '11,000円'], [2, '', 'NAOYA MIYAKE Solution Club', '15,000円'], [3, 'p57070.jpg', 'ＭＴ４裁量トレード練習君プレミ....', '29,800円'], [4, 'p66736.gif', 'マカド！ Amazonせどり管理ツール', '4,980円'], [5, 'p52761.png', 'インターネット総合集客ツール ....', '2,980円']];
-  const spCats = [...CATS, ZERO_CAT].map(c => `<a href="list.html" style="--c-fg:${c[2]}">${catIcon(c)}<span>${c[1]}</span></a>`).join('');
+  const spCats = CATS.map((c, n) => `<button type="button" class="sp-cat" data-sp-cat="spc${n}" aria-expanded="false" aria-controls="spc${n}" style="--c-fg:${c[2]}">${catIcon(c)}<span>${c[1]}</span></button>`).join('') + `<a class="sp-cat" href="#">${catIcon(ZERO_CAT)}<span>0円広場</span></a>`;
+  const spCatPanels = CATS.map((c, n) => `<div id="spc${n}" class="sp-cat-panel" style="--c-fg:${c[2]};--c-bg:${c[3]}" hidden><p class="sp-cat-panel__h"><a href="list.html">${c[0]}すべて ›</a></p><ul>${c[5].map(x => `<li><a href="list.html">${x}<span class="chev">›</span></a></li>`).join('')}</ul></div>`).join('');
   return header({ member: false, spSearch: true }) + `
 <div class="sp-pr sp-only"><span class="pr-label">PR</span><img src="assets/img/adsp75.gif" alt="広告" width="300" height="75"></div>
 <section class="hero" aria-label="メインスライダー" data-hero><div class="hero__view"><div class="hero__track" data-hero-track>${[['hero4.gif', ''], ['hero5.gif', ''], ['hero1.png', 'スマホで転売 1〜2分のスキマ時間でOK!'], ['hero2.gif', ''], ['hero3.png', '']].map(([im, alt], n) => `<a class="hero__slide${n === 2 ? ' is-cur' : ''}" href="#" data-i="${n}"><img src="assets/img/${im}" alt="${alt}"></a>`).join('')}</div><div class="hero__ctrl"><button class="round-btn" type="button" data-hero-dir="-1" aria-label="前のスライド">${i('left')}</button><button class="round-btn" type="button" data-hero-dir="1" aria-label="次のスライド">${i('right')}</button></div></div><div class="hero__dots">${[0, 1, 2, 3, 4].map(n => `<span${n === 2 ? ' aria-current="true"' : ''} data-dot="${n}"></span>`).join('')}</div></section>
 <div class="home wrap-pc">
   <main class="home__main">
-    <section class="band sp-only" aria-labelledby="h-cat"><div class="sec-head"><h2 id="h-cat" class="h-sec">カテゴリーから探す</h2><a class="sec-head__more" href="list.html">すべて見る ›</a></div><div class="sp-cats">${spCats}</div></section>
+    <section class="band sp-only" aria-labelledby="h-cat"><div class="sec-head"><h2 id="h-cat" class="h-sec">カテゴリーから探す</h2><a class="sec-head__more" href="list.html">すべて見る ›</a></div><div class="sp-cats">${spCats}</div>${spCatPanels}</section>
     ${recentSec('band sp-only')}
     <section class="pc-only pc-flex"><h2 class="h-under">おすすめ特集・キャンペーン</h2><div class="feat3">${star.map(s => `<a href="#"><img src="assets/img/${s}" alt="" loading="lazy"></a>`).join('')}</div></section>
     <section class="band" aria-labelledby="h-pick"><div class="sec-head"><h2 id="h-pick" class="h-sec"><span class="pc-only">おすすめピックアップ</span><span class="sp-only">最新ピックアップ情報</span></h2><span class="pr">PR</span></div><ul class="pickup-list">${pick.map(([im, t, b]) => `<li><a class="pickup" href="#"><img src="assets/img/${im}" alt="" loading="lazy"><div><strong>${t}</strong><span>${b}</span></div></a></li>`).join('')}</ul></section>
@@ -37,7 +38,8 @@ function home() {
     <div class="band sp-only">${ad('Google AdSense', 320, 100)}</div>
     <section class="sp-only" style="background:#fff"><button class="acc-btn" type="button" aria-expanded="false" aria-controls="genre"><span class="h-sec">ジャンル一覧</span><span class="chev">${i('down')}</span></button><ul id="genre" class="acc-panel" hidden>${CATS.map(c => `<li><a href="list.html">${c[0]}</a></li>`).join('')}</ul></section>
   </aside>
-</div>` + footer({ pc: 'portal', sp: 'guest' });
+</div>
+<div class="sticky-ad sp-only">${ad('フローティングバナー（広告）', 320, 50)}<button class="close-x" type="button" data-close-ad aria-label="広告を閉じる">×</button></div>` + footer({ pc: 'portal', sp: 'guest' });
 }
 
 // ========== 商品一覧 ==========
@@ -59,6 +61,7 @@ function list() {
   const rank = [PR_ROW, [1, 'p66736.gif', 'マカド！ Amazonせどり管理ツール', '4,980円'], [2, 'p105960.jpg', 'プロダクトスカウター スタンダード', '14,600円'], [3, 'p105386.jpg', '【せど楽AI】スタンダード_269', '9,800円'], [4, 'p62766.gif', '転売ツール工房デイせど～Amazon....', '5,980円'], [5, '', 'INFOTOP NEXT', '3,480円']];
   const hp = [['hp_96091.gif', 'アメブロジック(アメブロ集....'], ['hp_48021.gif', '情報起業支援プログラム--知....'], ['hp_86980.png', 'コンテンツビジネス大百科2.0'], ['hp_96559.png', '【業界不問】トップセールス....']];
   return header({ member: false, spSearch: true }) + `
+${recentSec('band sp-only')}
 <div class="wrap pc-only"><nav class="crumb" aria-label="パンくず"><a href="index.html">ポータルTOP</a><span>›</span><span>ビジネス・稼ぐ</span></nav></div>
 <div class="list-layout wrap-pc">
   <main class="list-layout__main">
@@ -67,7 +70,7 @@ function list() {
     <ul class="items">${ITEMS.map(card).join('')}</ul>
     <p class="note" style="text-align:center">（以下20件まで同じ形式で続く）</p>
     ${pages}
-    ${recentSec('band')}
+    ${recentSec('band pc-only')}
     <section class="pick-sec sp-only" aria-labelledby="h-pk"><h2 id="h-pk" class="h-sec" style="margin-bottom:12px;font-size:16px">［ビジネス・稼ぐ］のピックアップ教材</h2><ul class="pick-grid">${hp.map(([im, t]) => `<li><a href="#">${thumb(im)}<span class="mini__t">${t}</span></a></li>`).join('')}</ul></section>
   </main>
   <aside class="list-layout__side">
@@ -142,7 +145,7 @@ const newsDetail = () => memberPage('お知らせ', '', `<article class="panel s
 
 // ========== ログイン・パスワード再発行 ==========
 const guestShell = (main, o = {}) => header({ member: false }) + `<main class="wrap" style="padding-block:20px 40px;display:flex;flex-direction:column;gap:16px">${main}</main>` + footer({ pc: o.pc || 'portal', sp: o.sp || 'guest' });
-const login = () => guestShell(`<div class="narrow stack"><h1 class="h1">購入者マイページログイン</h1><div class="sp-only"><span class="pr-label">--PR--</span><img src="assets/img/adsp75.gif" alt="広告" width="300" height="75" style="margin-inline:auto"></div><form class="panel stack" action="mypage.html" data-login novalidate><p class="form-error" role="alert" hidden>メールアドレスまたはパスワードが正しくありません。<br>入力内容をご確認のうえ、もう一度お試しください。</p><p>会員様は メールアドレス・パスワードを入力しログインしてください。</p><label class="field">メールアドレス<input class="input" type="email" autocomplete="username"></label><label class="field">パスワード<input class="input" type="password" autocomplete="current-password"></label><label class="check"><input type="checkbox">パスワードを表示する</label><button class="btn btn--primary btn--lg btn--block" type="submit">ログイン</button><a href="pw-reset.html" style="text-align:center">パスワードを忘れた方はこちら</a></form></div>`);
+const login = () => guestShell(`<div class="narrow stack"><h1 class="h1">購入者マイページログイン</h1><div class="sp-only"><span class="pr-label">--PR--</span><img src="assets/img/adsp75.gif" alt="広告" width="300" height="75" style="margin-inline:auto"></div><form class="panel stack" action="mypage.html" data-login novalidate><p class="form-error" role="alert" hidden>メールアドレスまたはパスワードが正しくありません。<br>入力内容をご確認のうえ、もう一度お試しください。</p><p>会員様は メールアドレス・パスワードを入力しログインしてください。</p><label class="field">メールアドレス<input class="input" type="email" autocomplete="username"></label><label class="field">パスワード<input class="input" type="password" autocomplete="current-password"></label><label class="check"><input type="checkbox">パスワードを表示する</label><button class="btn btn--primary btn--lg btn--block" type="submit">ログイン</button><a href="pw-reset.html" style="text-align:center">パスワードを忘れた方はこちら</a></form><div class="sp-only">${ad('Google AdSense', 300, 250)}</div></div>`);
 const pwReset = () => guestShell(`<div class="narrow stack"><h1 class="h1">パスワードの再設定</h1><form class="panel stack" action="pw-sent.html"><p>登録されているメールアドレスを入力してください。<br>入力されたメールアドレス宛に会員情報が送信されます。</p><div class="warn" style="padding:12px 14px;font-size:13px">※「@infotop.jp」からのメール受信許可設定をお願いします。<br>メール受信許可設定方法がご不明な場合は、ご利用のメールサービスまでお問い合わせください。</div><label class="field">メールアドレス<input class="input" type="email" autocomplete="email"></label><div class="btn-row"><a class="btn" href="login.html">戻る</a><button class="btn btn--primary" type="submit">送信</button></div></form></div>`);
 const pwSent = () => guestShell(`<section class="panel stack" style="line-height:1.8"><p><strong>弊社ご登録のアドレスにパスワード再設定URLをお送りしましたので<br>ご確認ください。</strong></p><p>※パスワード変更案内メール到着後、24時間以内にメール記載のURLよりパスワードの変更をお願いいたします。<br>変更されない場合は、再度パスワードの設定が必要となりますので、ご注意下さい。</p><div class="step"><p><strong>万が一メールが届かない等ございましたら下記の内容をご確認ください。</strong></p><p>・迷惑メールフォルダーのご確認<br>・フィルター設定のご確認（PCメールの受信設定等）</p><p>上記ご確認後もメールの受信が行えない場合ございましたら<br>下記サポートセンターまでご連絡ください。</p></div><p><strong>infotopサポートセンター</strong><br>電話番号: <strong style="color:var(--red)">050-3786-0541</strong><br>対応時間: 平日10時～17時<br>※お電話口で「パスワード再設定URLが届かない」とお申し出ください。</p><p style="color:var(--danger);font-weight:700">電話対応時間以外のお問い合わせにつきましては、問い合わせフォームからご連絡ください。<br>※順次のご対応となります事を予めご了承ください。</p><a href="#" style="font-weight:700">問い合わせフォームはこちらをクリック</a></section>`);
 
@@ -151,7 +154,7 @@ const logout = () => memberPage('ログアウト', '', `<section class="panel na
 const logoutDone = () => guestShell(`<section class="panel narrow"><div class="center-box"><span class="ok-mark">${i('check')}</span><h1 style="font-size:22px;font-weight:900">ログアウト</h1><p>ログアウトしました。</p><a class="btn btn--primary btn--lg sp-only" href="login.html">ログインページ</a><a class="btn btn--primary btn--lg pc-only" href="index.html" style="display:inline-flex">infotop Topへ</a><a class="btn sp-only" href="index.html">infotop Topへ</a></div></section>`, { pc: 'member', sp: 'member' });
 
 // ========== 会員退会 ==========
-const NOTES = ['お客さまに関わる全ての情報の復元はできません。', 'ダウンロード版の商品をご購入され、かつダウンロード回数が残っていた場合でも、ダウンロードする権利を放棄したものとみなします。', '支払中の分割払い、入会中の月額課金サービスがある場合は退会できません。分割払いのお支払いが完了してから退会いただくか、月額課金サービスを退会してから手続きをお願いいたします。'];
+const NOTES = ['お客さまに関わる全ての情報の復元はできません。', 'ダウンロード版の商品をご購入され、かつダウンロード回数が残っていた場合でも、ダウンロードする権利を放棄したものとみなします。', '支払中の複数回払い、入会中の月額課金サービスがある場合は退会できません。複数回払いのお支払いが完了してから退会いただくか、月額課金サービスを退会してから手続きをお願いいたします。'];
 const withdraw = () => memberPage('会員情報', '会員情報', `<h1 class="h1">会員退会</h1><p><span class="sp-only">下記入力フォームにご記入ください。<br></span><span class="req">*</span>印は必須項目となります。</p><form class="stack" action="withdraw-confirm.html"><section class="panel stack"><div class="form-row form-row--inline"><label class="form-label" for="reason">退会される理由（詳細）<span class="req sp-only">＊</span></label><textarea id="reason" class="input" rows="4"></textarea></div><div class="warn"><p class="warn__t">${i('alert')}【重要】退会前に必ずお読みください。</p><ul>${NOTES.map(n => `<li>${n}</li>`).join('')}</ul></div><div class="form-row form-row--inline"><span class="form-label">同意<span class="req">*</span></span><label class="check"><input type="checkbox" required><strong>私は、上記の事項に全て同意した上で退会を希望します。</strong></label></div></section><div class="btn-row"><button class="btn btn--primary btn--lg" type="submit">確認</button></div></form>`, { recent: true });
 const withdrawConfirm = () => memberPage('会員情報', '会員情報', `<h1 class="h1">会員退会</h1><p style="font-size:15px">退会します。よろしいですか？</p><section class="panel"><div class="form-row form-row--inline"><span class="form-label">退会される理由（詳細）</span><p>（入力した退会理由が入ります）</p></div></section><div class="btn-row"><a class="btn btn--primary btn--lg" href="withdraw-done.html">確認</a><a class="btn btn--lg" href="withdraw.html">戻る</a></div>`, { recent: true });
 const withdrawDone = () => header({ member: true, activeTab: '会員情報', spGuest: true }) + `
@@ -159,7 +162,7 @@ const withdrawDone = () => header({ member: true, activeTab: '会員情報', spG
 
 // [出力ファイル, タイトル, 本文, ログイン中か, 下部固定広告]
 const PAGES = [
-  ['index.html', 'ドメインTOP', home(), false],
+  ['index.html', 'ドメインTOP', home(), false, true],
   ['list.html', '商品一覧', list(), false],
   ['ranking.html', '売上ランキング', ranking(false), false],
   ['ranking-member.html', '売上ランキング', ranking(true), true],

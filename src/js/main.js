@@ -158,6 +158,28 @@
     start();
   });
 
+  // SPトップ：カテゴリアイコンで小カテゴリを開閉（同時に開くのは1つ）
+  var catBtns = document.querySelectorAll('[data-sp-cat]');
+  catBtns.forEach(function (b) {
+    b.addEventListener('click', function () {
+      var open = b.getAttribute('aria-expanded') !== 'true';
+      catBtns.forEach(function (x) { x.setAttribute('aria-expanded', 'false'); var p = document.getElementById(x.dataset.spCat); if (p) p.hidden = true; });
+      if (open) { b.setAttribute('aria-expanded', 'true'); document.getElementById(b.dataset.spCat).hidden = false; }
+    });
+  });
+
+  // ダイアログ（WEBメール受信設定の変更など）
+  document.querySelectorAll('[data-open-dialog]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var d = document.getElementById(b.dataset.openDialog);
+      if (!d) return;
+      var row = b.closest('tr, .o-card');
+      var nm = d.querySelector('[data-dialog-name]');
+      if (row && nm) { var cell = row.querySelector('td:nth-child(2), dd'); var names = row.querySelectorAll('dd'); nm.textContent = (row.tagName === 'TR' ? cell : names[1] || cell).textContent.trim(); }
+      if (d.showModal) d.showModal(); else d.setAttribute('open', '');
+    });
+  });
+
   // 下部固定広告を閉じる
   document.querySelectorAll('[data-close-ad]').forEach(function (b) {
     b.addEventListener('click', function () {
