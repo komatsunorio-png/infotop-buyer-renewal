@@ -10,6 +10,9 @@ const rankBox = (rows, scope) => `<section class="rank-box" aria-labelledby="h-r
   <div class="rank-box__more"><a class="btn btn--outline btn--block" href="ranking.html"><span class="pc-only">もっと見る!!</span><span class="sp-only">売れ筋ランキングをもっと見る</span></a></div></section>`;
 const PR_ROW = ['PR', 'rkpr.gif', '知ってて当然のルールを知ろう', ''];
 
+// SP共通：オーバーレイバナー（画面に重ねて表示、×で閉じる。表示タイミングは広告配信側）
+const overlayAd = () => `<div class="overlay-ad sp-only" role="dialog" aria-label="広告"><div class="overlay-ad__box"><span class="pr-label" style="color:#fff">PR</span>${ad('オーバーレイバナー（広告）', 300, 250)}<button class="close-x" type="button" data-close-overlay aria-label="広告を閉じる">×</button></div></div>`;
+
 // ========== ドメインTOP ==========
 function home() {
   const star = ['star1.png', 'star2.gif', 'star3.gif'];
@@ -39,7 +42,7 @@ function home() {
     <section class="sp-only" style="background:#fff"><button class="acc-btn" type="button" aria-expanded="false" aria-controls="genre"><span class="h-sec">ジャンル一覧</span><span class="chev">${i('down')}</span></button><ul id="genre" class="acc-panel" hidden>${CATS.map(c => `<li><a href="list.html">${c[0]}</a></li>`).join('')}</ul></section>
   </aside>
 </div>
-<div class="sticky-ad sp-only">${ad('フローティングバナー（広告）', 320, 50)}<button class="close-x" type="button" data-close-ad aria-label="広告を閉じる">×</button></div>` + footer({ pc: 'portal', sp: 'guest' });
+${overlayAd()}` + footer({ pc: 'portal', sp: 'guest' });
 }
 
 // ========== 商品一覧 ==========
@@ -129,10 +132,10 @@ function mypage() {
     <section class="panel pc-only"><h2 class="panel__title">インフォトップへの問い合わせ方法</h2><div style="display:grid;grid-template-columns:1fr 1fr;gap:16px"><div class="step"><strong style="font-size:16px">お電話でのお問い合わせ</strong><span>お電話での受付時間は<br>平日10時から17時です。</span><strong style="font-size:26px;color:var(--red)">050-3786-0541</strong><span class="note">商品の内容については、直接販売者様にお問合せ下さい。</span></div><div class="step"><strong style="font-size:16px">メールでのお問い合わせ</strong><span>メールでのお問い合わせは<br>365日24時間受付中です。</span><a class="btn btn--primary" href="#" style="margin-top:auto;align-self:flex-start">お問い合わせフォームへ</a></div></div><p class="note" style="margin-top:16px">商品のご利用方法や内容について、ご不明点やお困りの点がございましたら、販売者様まで直接お問い合わせください。<br>万が一、土日祝日を除いた3日間以上経過しても、販売者様と連絡が取れない場合は、<br>お問い合わせされた日時と内容を詳しく記載の上、インフォトップサポートセンターまでお問い合わせください。</p></section>
     <a class="manual sp-only" href="#" style="display:flex">${i('book')}infotopご利用マニュアル<small>はこちら</small></a>
     <section class="panel sp-only" style="padding:14px 16px"><h2 class="h-sec" style="font-size:15px">よくある問合せ</h2><ul class="link-list"><li><a href="#">スマートフォン・タブレット端末でPDFファイルを閲覧する方法</a></li><li><a href="#">スマートフォン・タブレット端末で圧縮ファイル（zip,lzh）を解凍する方法</a></li></ul></section>
-    <div class="overlay-ad sp-only"><span class="note">オーバーレイ広告（画面に重ねて表示）</span><div class="overlay-ad__box">${ad('広告タグ', 300, 250)}<button class="close-x" type="button" data-close-overlay aria-label="広告を閉じる">×</button></div></div>
   </main>
 </div>
-<div class="sticky-ad sp-only">${ad('広告タグ', 320, 50)}<button class="close-x" type="button" data-close-ad aria-label="広告を閉じる">×</button></div>` + footer({ pc: 'member', sp: 'member' });
+<div class="sticky-ad sp-only">${ad('広告タグ', 320, 50)}<button class="close-x" type="button" data-close-ad aria-label="広告を閉じる">×</button></div>
+${overlayAd()}` + footer({ pc: 'member', sp: 'member' });
 }
 
 // ========== お知らせ ==========
@@ -162,7 +165,7 @@ const withdrawDone = () => header({ member: true, activeTab: '会員情報', spG
 
 // [出力ファイル, タイトル, 本文, ログイン中か, 下部固定広告]
 const PAGES = [
-  ['index.html', 'ドメインTOP', home(), false, true],
+  ['index.html', 'ドメインTOP', home(), false],
   ['list.html', '商品一覧', list(), false],
   ['ranking.html', '売上ランキング', ranking(false), false],
   ['ranking-member.html', '売上ランキング', ranking(true), true],

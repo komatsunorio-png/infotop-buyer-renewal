@@ -160,11 +160,31 @@
 
   // SPトップ：カテゴリアイコンで小カテゴリを開閉（同時に開くのは1つ）
   var catBtns = document.querySelectorAll('[data-sp-cat]');
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function slideOpen(p) {
+    p.hidden = false;
+    if (reduce) return;
+    var h = p.scrollHeight;
+    p.style.height = '0px'; p.style.opacity = '0';
+    p.offsetHeight;
+    p.style.height = h + 'px'; p.style.opacity = '1';
+    setTimeout(function () { p.style.height = ''; }, 300);
+  }
+  function slideClose(p) {
+    if (p.hidden) return;
+    if (reduce) { p.hidden = true; return; }
+    p.style.height = p.scrollHeight + 'px';
+    p.offsetHeight;
+    p.style.height = '0px'; p.style.opacity = '0';
+    setTimeout(function () { p.hidden = true; p.style.height = ''; p.style.opacity = ''; }, 300);
+  }
   catBtns.forEach(function (b) {
     b.addEventListener('click', function () {
       var open = b.getAttribute('aria-expanded') !== 'true';
-      catBtns.forEach(function (x) { x.setAttribute('aria-expanded', 'false'); var p = document.getElementById(x.dataset.spCat); if (p) p.hidden = true; });
-      if (open) { b.setAttribute('aria-expanded', 'true'); document.getElementById(b.dataset.spCat).hidden = false; }
+      catBtns.forEach(function (x) { if (x === b && open) return; if (x.getAttribute('aria-expanded') === 'true') { x.setAttribute('aria-expanded', 'false'); slideClose(document.getElementById(x.dataset.spCat)); } });
+      b.setAttribute('aria-expanded', String(open));
+      var p = document.getElementById(b.dataset.spCat);
+      open ? slideOpen(p) : slideClose(p);
     });
   });
 
