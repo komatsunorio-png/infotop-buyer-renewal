@@ -97,7 +97,7 @@ function monthlyQuit() {
   const svc = [['サービス名', '【テスト】月額課金商品01（バックエンド付き）'], ['インフォプレナー名', '販売者名'], ['月額サービス料', '2,000'], ['決済日', '毎月14日']];
   return header({ member: true, activeTab: '月額課金サービス', spActive: '月額課金', cats: false }) + `
 <div class="pc-only" style="padding-top:16px"><span class="pr-label">--PR--</span>${ad('広告タグ', 576, 60)}</div>
-<div class="page wrap">${sideMember({ recent: true })}<main class="page__main">${h1('マイページ')}${panel('月額課金サービス', 'cal', `<div class="stack"><strong style="font-size:15px">受信履歴確認</strong>${kv(svc, 4, 1)}<div class="warn warn--red"><p class="warn__t">${i('alert')}退会にご注意ください</p><p class="note-body">本サービスはクレジットカードの自動引き落としで決済されています。<br>一度退会すると、再度入会している状態に戻すことが出来ません。</p></div><div class="btn-row"><a class="btn btn--primary" href="monthly.html">退会する</a><a class="btn" href="monthly.html">戻る</a></div></div>`)}</main></div>` + footer({ pc: 'member', sp: 'member' });
+<div class="page wrap">${sideMember({ recent: true })}<main class="page__main">${h1('マイページ')}${panel('月額課金サービス', 'cal', `<div class="stack"><strong style="font-size:15px">退会確認</strong>${kv(svc, 4, 1)}<div class="warn warn--red"><p class="warn__t">${i('alert')}退会にご注意ください</p><p class="note-body">本サービスはクレジットカードの自動引き落としで決済されています。<br>一度退会すると、再度入会している状態に戻すことが出来ません。</p></div><div class="btn-row"><a class="btn btn--primary" href="monthly.html">退会する</a><a class="btn" href="monthly.html">戻る</a></div></div>`)}</main></div>` + footer({ pc: 'member', sp: 'member' });
 }
 
 // ========== メッセージ ==========
