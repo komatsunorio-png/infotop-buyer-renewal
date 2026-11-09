@@ -90,7 +90,8 @@ function footer({ pc = 'member', sp = 'member' }) {
 function drawer(member) {
   const head = `<div class="drawer__head">メニュー<button class="icon-btn" type="button" data-close aria-label="閉じる">${i('close')}</button></div>`;
   if (member) {
-    const nav = [['商品検索', 'search', 'list.html'], ['注文履歴', 'doc', 'order.html'], ['売れ筋', 'crown', 'ranking-member.html'], ['0円広場', 'tag', '#'], ['ガイド（ご利用マニュアル・FAQ）', 'book', '#']];
+    // グロナビ（SPメニュー）の10個をそのまま並べる
+    const nav = SP_MENU.map(([t, ic, h]) => [t === 'ガイド' ? 'ガイド（ご利用マニュアル・FAQ）' : t, ic, h]);
     return `<div id="drawer" class="drawer" role="dialog" aria-label="メニュー" aria-modal="true"><div class="drawer__panel">${head}<div style="padding:16px"><a class="btn btn--block" href="logout.html">${i('out')}ログアウト</a></div><div class="drawer__label">ナビゲーション</div><ul class="drawer__rows">${nav.map(([t, ic, h]) => `<li><a class="row" href="${h}"><span class="cat-icon" style="--c-fg:#CE1C00;--c-bg:#FDE8E4">${i(ic)}</span>${t}<span class="chev">›</span></a></li>`).join('')}</ul></div></div>`;
   }
   const nav = [['特集', 'star', '#'], ['ランキング', 'crown', 'ranking.html'], ['0円広場', 'tag', '#'], ['ガイド', 'help', '#']];
