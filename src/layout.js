@@ -71,7 +71,7 @@ const FB = '<span class="foot-ic foot-ic--fb">f</span>', XI = '<span class="foot
 const groups = `<div class="foot-groups">${[['SNS', [['フェイスブック', FB], ['X', XI]]], ['情報', [['カレッジ', `<span class="foot-ic">${i('school')}</span>`]]], ['各種サービス', [['LP制作', `<span class="foot-ic">${i('lp')}</span>`]]], ['広告', [['広告掲載', `<span class="foot-ic">${i('ad')}</span>`]]]].map(([h, ls]) => `<div class="foot-group"><span class="foot-group__h">${h}</span><div class="foot-group__links">${ls.map(([t, ic]) => `<a href="#">${ic}${t}</a>`).join('')}</div></div>`).join('')}</div>`;
 const LINKS = ['プライバシーポリシー', 'ご利用規約', 'ガイドライン', '会社概要', 'ヘルプ', '特定商取引法に関する表記'];
 const SP_G_LINKS = ['プライバシーポリシー', 'ご利用規約', 'ガイドライン', '会社概要', '特定商取引法に関する表記'];
-const FCOLS = [...CATS.map(c => [c[0], c[5]]), ['0円広場', []], ['各種サービス', ['LP制作', '広告掲載お問い合わせ']], ['コンテンツ', ['インフォトップカレッジ', 'インフォトップコラム', 'インフォトップのオススメ']], ['ログインページ', ['アフィリエイターログイン', '販売者ログイン']]];
+const FCOLS = [...CATS.map(c => [c[0], c[5]]), ['各種サービス', ['LP制作', '広告掲載お問い合わせ']], ['コンテンツ', ['0円広場', 'インフォトップカレッジ', 'インフォトップコラム', 'インフォトップのオススメ']], ['ログインページ', ['アフィリエイターログイン', '販売者ログイン']]];
 
 // footer: 'portal'（PC大フッター）/ 'member'（PC簡易）。SPは member ならPC同等の情報、guest は規約リンクのみ
 function footer({ pc = 'member', sp = 'member' }) {

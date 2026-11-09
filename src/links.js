@@ -124,6 +124,6 @@ function applyLinks(html, map) {
 }
 // 別ウィンドウで開くリンク先（ご指示分）
 const NEW_WIN = ['https://help-infotop.jp/html/support/', 'https://help-infotop.jp/html/info/guidline.php', 'https://www.infotop.jp/html/contact/customer/general/form.php', 'https://help-infotop.jp/manual/mc/548/'];
-const newWindow = html => html.replace(/<a\b([^>]*?)href="([^"]+)"([^>]*)>/g, (all, pre, url, post) => NEW_WIN.some(u => url.startsWith(u)) && !/target=/.test(pre + post) ? `<a${pre}href="${url}" target="_blank" rel="noopener"${post}>` : all);
+const newWindow = html => html.replace(/<a\b([^>]*?)href="([^"]+)"([^>]*)>/g, (all, pre, url, post) => /^https?:\/\//.test(url) && !/target=/.test(pre + post) ? `<a${pre}href="${url}" target="_blank" rel="noopener"${post}>` : all);
 const applyAll = (html, map) => newWindow(applyLinks(html, map));
 module.exports = { applyLinks: applyAll, collectNames };
