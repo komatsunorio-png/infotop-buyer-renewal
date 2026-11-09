@@ -747,3 +747,9 @@ textarea.input { padding: 10px 14px; }
 .dlg::backdrop { background: rgba(20,22,25,.5); }
 .dlg__body { display: flex; flex-direction: column; gap: 14px; padding: 22px 20px; }
 .dlg__t { font-size: 17px; font-weight: 900; }
+
+/* 商品ごとのお問い合わせ */
+.inq-sub { padding: 8px 12px; border-left: 4px solid var(--red); background: var(--bg-2); font-size: 15px; font-weight: 900; }
+.inq-rows { border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
+.inq-rows > .form-row, .inq-rows > .form-row:first-child { padding: 12px 14px; }
+@media (min-width: 768px) { .inq-rows .form-row--inline { align-items: center; } }
