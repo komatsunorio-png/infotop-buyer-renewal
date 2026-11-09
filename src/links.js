@@ -7,6 +7,7 @@ const CAT_IDS = [['情報起業', 102], ['アフィリエイト', 103], ['せど
 const HELP = 'https://help-infotop.jp/';
 const CONTACT_FORM = `${W}/html/contact/customer/general/form.php`;
 const SUPPORT = 'https://support.infotop.jp/customer.php';
+const GUIDELINE = 'https://help-infotop.jp/html/info/guidline.php';
 // リンク文字列（タグを除いた文字）→ リンク先
 const TEXT = {
   // ヘッダー・ドロワー
@@ -29,10 +30,10 @@ const TEXT = {
   '販売者ログイン': `${W}/seller/auth/login`,
   'プライバシーポリシー': 'https://first-penguin.co.jp/company/privacy',
   'ご利用規約': 'https://info.infotop.jp/regulation.php',
-  'ガイドライン': 'https://info.infotop.jp/guidline.php',
+  'ガイドライン': GUIDELINE,
   '会社概要': 'https://first-penguin.co.jp/company',
   '特定商取引法に関する表記': 'https://info.infotop.jp/law.php',
-  '購入後のお問い合わせはこちら': `${W}/html/support/user/`,
+  '購入後のお問い合わせはこちら': 'https://help-infotop.jp/html/support/',
   'ご利用マニュアル': 'https://help-infotop.jp/manual/mc/mc-member/',
   'FAQ': 'https://help-infotop.jp/faq/fc/fc-member/',
   'お問い合わせ先': SUPPORT,
@@ -45,13 +46,12 @@ const TEXT = {
   'infotopご利用マニュアルはこちら': 'https://manual.infotop.jp/',
   'スマートフォン・タブレット端末でPDFファイルを閲覧する方法': 'https://faq.infotop.jp/customer/2013?css=style',
   // 注文履歴・月額課金・分割決済
-  'インフォトップガイドライン': 'https://info.infotop.jp/guidline.php',
+  'インフォトップガイドライン': GUIDELINE,
   'スマートフォン・タブレットでの閲覧方法': 'https://faq.infotop.jp/customer/2013?css=style',
   'お支払いや請求に関する疑問点': 'https://faq.infotop.jp/category/customer/payment?css=style',
   '▼ダウンロードに関するお問い合わせはこちら': CONTACT_FORM,
-  '▼インフォトップご利用マニュアル 月額会員サービスの入会方法': 'https://manual.infotop.jp/customer/548?css=style',
-  '▼FAQ 月額課金サービスについての項目': 'https://faq.infotop.jp/category/customer/subscriptionservice?css=style',
-  'カード決済代行会社はこちら': 'https://faq.infotop.jp/customer/1441',
+  '▼インフォトップご利用マニュアル 月額会員サービスの入会方法': 'https://help-infotop.jp/manual/mc/548/',
+  '▼FAQ 月額課金サービスについての項目': 'https://help-infotop.jp/tag/all__/?s=%E6%9C%88%E9%A1%8D',
   // パスワード再発行
   '問い合わせフォームはこちらをクリック': CONTACT_FORM
 };
@@ -122,4 +122,8 @@ function applyLinks(html, map) {
     return all;
   });
 }
-module.exports = { applyLinks, collectNames };
+// 別ウィンドウで開くリンク先（ご指示分）
+const NEW_WIN = ['https://help-infotop.jp/html/support/', 'https://help-infotop.jp/html/info/guidline.php', 'https://www.infotop.jp/html/contact/customer/general/form.php', 'https://help-infotop.jp/manual/mc/548/'];
+const newWindow = html => html.replace(/<a\b([^>]*?)href="([^"]+)"([^>]*)>/g, (all, pre, url, post) => NEW_WIN.some(u => url.startsWith(u)) && !/target=/.test(pre + post) ? `<a${pre}href="${url}" target="_blank" rel="noopener"${post}>` : all);
+const applyAll = (html, map) => newWindow(applyLinks(html, map));
+module.exports = { applyLinks: applyAll, collectNames };
